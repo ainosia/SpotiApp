@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <h1 class="font-weight-light text-center">{{ artist.name }} Top Tracks</h1>
+  <hr>
+  <div class="row mt-5">
+    <div class="col-md-3">
+      <img [src]="artist.images | nophoto" class="img-thumbnail mb-4">
+      <a [href]="artist.external_urls?.spotify" target="_blank" type="button" class="btn btn-outline-primary mt-2 btn-block">Ir a Spotify</a>
+      <a [routerLink]="['/buscar']" class="btn btn-outline-primary btn-block">Volver</a>
+    </div>
+    <div class="col-md-9">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Canción</th>
+            <th scope="col">Popularidad</th>
+            <th scope="col" class="text-center">Escuchar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let track of tracks; let i = index">
+            <td class="align-middle">{{ i + 1 }}</td>
+            <td><img [src]="track.album.images | nophoto" width="64" height="64"></td>
+            <td class="align-middle">{{ track.name }}</td>
+            <td class="text-center align-middle">{{ track.popularity }}%</td>
+            <td class="align-middle">
+              <!-- <audio controls><source [src]="track.preview_url"></audio> -->
+              <iframe [src]="track.uri | domseguro: 'https://open.spotify.com/embed?uri='" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
